@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item active">Pembekal</li>
+{% endblock %}
+
+{% block content %}
+  <table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th>ID</th>
+        <th>Nama</th>
+        <th>Alamat</th>
+        <th>Telefon</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for pembekal in pembekals %}
+        <tr>
+          <td>{{ pembekal.pk }}</td>
+          <td><a href="{% url 'stoks' pembekal.pk %}">{{ pembekal.nama_pembekal }}</a></td>
+          <td>{{ pembekal.alamat }}</td>
+          <td>{{ pembekal.telefon }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

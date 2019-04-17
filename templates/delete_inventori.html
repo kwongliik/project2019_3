@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Delete</h1>
+    <form action="" method="post">
+        {% csrf_token %}
+      <p>Are you sure you want to delete "{{ inventori.nama_inventori }}"?</p>
+      <button class="btn btn-danger ml-2" type="submit">Confirm</button>
+      <a href="{% url 'inventoris' inventori.stok.pembekal.pk  inventori.stok.pk %}" class="btn btn-outline-secondary" role="button">Cancel</a>
+    </form>
+{% endblock %}

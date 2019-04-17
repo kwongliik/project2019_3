@@ -1,0 +1,14 @@
+{% for stok in stoks %}
+  <tr>
+    <td>{{ stok.id }}</td>
+      <td><a href="{% url 'inventoris' stok.pembekal.pk stok.pk %}">{{ stok.nama_stok }}</a></td>
+    <td style="width: 150px">
+      <a href="{% url 'edit_stok' stok.pembekal.pk stok.pk %}" class="btn btn-warning btn-sm" role="button">
+          Edit
+      </a>
+      <a href="{% url 'delete_stok' stok.pembekal.pk stok.pk %}" class="btn btn-danger btn-sm" role="button">
+          Delete
+      </a>
+    </td>
+  </tr>
+{% endfor %}

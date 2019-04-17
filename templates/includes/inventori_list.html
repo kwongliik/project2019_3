@@ -1,0 +1,22 @@
+{% for inventori in stok.inventoris.all %}
+  <tr>
+    <td>{{ inventori.pk }}</td>
+    <td>{{ inventori.nama_inventori }}</td>
+    <td>{{ inventori.harga }}</td>
+    <td>{{ inventori.kuantiti }}</td>
+    <td>{{ inventori.created_by.username }}</td>
+    <td>{{ inventori.created_at }}</td>
+    <td style="width: 150px">
+        <a href="{% url 'edit_inventori' inventori.stok.pembekal.pk inventori.stok.pk inventori.pk %}" class="btn btn-warning btn-sm" role="button">
+            Edit
+        </a>
+        <a href="{% url 'delete_inventori' inventori.stok.pembekal.pk inventori.stok.pk inventori.pk %}" class="btn btn-danger btn-sm" role="button">
+            Delete
+        </a>
+    </td>
+  </tr>
+{% empty %}
+  <tr>
+    <td colspan="8" class="text-center bg-warning">No inventori</td>
+  </tr>
+{% endfor %}

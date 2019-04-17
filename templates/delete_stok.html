@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Delete</h1>
+    <form action="" method="post">
+        {% csrf_token %}
+      <p>Are you sure you want to delete "{{ stok.nama_stok }}"?</p>
+      <button class="btn btn-danger ml-2" type="submit">Confirm</button>
+      <a href="{% url 'stoks' stok.pembekal.pk %}" class="btn btn-outline-secondary" role="button">Cancel</a>
+    </form>
+{% endblock %}

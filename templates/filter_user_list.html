@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+
+{% load widget_tweaks %}
+
+{% load static %}
+
+{% block content %}
+  <form method="get">
+    <div class="well">
+      <h4 style="margin-top: 0">Filter user list</h4>
+      <div class="row">
+        <div class="form-group col-sm-4 col-md-3">
+          {{ filter.form.username.label_tag }}
+          {% render_field filter.form.username class="form-control" %}
+        </div>
+        <div class="form-group col-sm-4 col-md-3">
+          {{ filter.form.first_name.label_tag }}
+          {% render_field filter.form.first_name class="form-control" %}
+        </div>
+        <div class="form-group col-sm-4 col-md-3">
+          {{ filter.form.last_name.label_tag }}
+          {% render_field filter.form.last_name class="form-control" %}
+        </div>
+        <div class="form-group col-sm-4 col-md-3">
+          {{ filter.form.date_joined.label_tag }}
+          {% render_field filter.form.date_joined class="form-control" %}
+        </div>
+        <div class="form-group col-sm-8 col-md-6">
+          {{ filter.form.groups.label_tag }}
+          <div>
+            {% for choice in filter.form.groups %}
+              <label class="checkbox-inline">
+                {{ choice.tag }} {{ choice.choice_label }}
+              </label>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary">
+        Search
+      </button>&nbsp;
+      <button type="button" class="btn btn-primary" id="btnPrint">
+        Print
+      </button>
+    </div>
+  </form>
+  &nbsp;
+  <div id="dvContainer">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Username</th>
+          <th>First name</th>
+          <th>Last name</th>
+          <th>Date joined</th>
+          <th>Groups</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for user in filter.qs %}
+          <tr>
+            <td>{{ user.username }}</td>
+            <td>{{ user.first_name }}</td>
+            <td>{{ user.last_name }}</td>
+            <td>{{ user.date_joined }}</td>
+            <td>
+              {% for group in user.groups.all %}
+                {{ group }}
+              {% empty %}
+                <em class="text-muted">No group</em>
+              {% endfor %}
+            </td>
+          </tr>
+        {% empty %}
+          <tr>
+            <td colspan="5" class="text-center bg-warning">No data</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+  <script type="text/javascript">
+    $("#btnPrint").live("click", function () {
+        var divContents = $("#dvContainer").html();
+        var printWindow = window.open('', '', 'height=400,width=800');
+        printWindow.document.write('<html><head><title>User list</title>');
+        printWindow.document.write('<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">');
+        printWindow.document.write('</head><body>');
+        printWindow.document.write('<h2>User list</h2>');
+        printWindow.document.write(divContents);
+        printWindow.document.write('</body></html>');
+        printWindow.document.close();
+        printWindow.print();
+     });
+  </script>
+{% endblock %}

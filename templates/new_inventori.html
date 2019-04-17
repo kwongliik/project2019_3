@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Create new inventori{% endblock %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item"><a href="{% url 'home' %}">Pembekal</a></li>
+  <li class="breadcrumb-item"><a href="{% url 'stoks' stok.pembekal.pk %}">{{ stok.pembekal.nama_pembekal }}</a></li>
+  <li class="breadcrumb-item"><a href="{% url 'inventoris' stok.pembekal.pk stok.pk %}">{{ stok.nama_stok }}</a></li>
+  <li class="breadcrumb-item active">Create new inventori</li>
+{% endblock %}
+
+{% block content %}
+
+  <form method="post" class="mb-4" novalidate>
+    {% csrf_token %}
+    {% include 'includes/form.html' %}
+    <button type="submit" class="btn btn-success">Create new inventori</button>
+  </form>
+{% endblock %}
